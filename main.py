@@ -26,6 +26,12 @@ def flip_card():
     canvas.itemconfig(title, text="English", fill='white')
 
 
+def remove_card():
+    words.remove(random_word)
+    print(len(words))
+    next_card()
+
+
 window = Tk()
 window.title("Flashy")
 window.config(padx=50, pady=50, background=BACKGROUND_COLOR)
@@ -43,7 +49,7 @@ canvas.grid(row=0, column=0, columnspan=2)
 check_button_photo = PhotoImage(file="images/right.png")
 cross_button_photo = PhotoImage(file="images/wrong.png")
 
-right_button = Button(image=check_button_photo, highlightthickness=0, command=next_card)
+right_button = Button(image=check_button_photo, highlightthickness=0, command=remove_card)
 right_button.grid(row=1, column=1)
 wrong_button = Button(image=cross_button_photo, highlightthickness=0, command=next_card)
 wrong_button.grid(row=1, column=0)
