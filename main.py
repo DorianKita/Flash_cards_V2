@@ -2,9 +2,17 @@ import pandas
 from tkinter import *
 import random
 BACKGROUND_COLOR = "#B1DDC6"
+words = {}
 
-df = pandas.read_csv("data/french_words.csv")
-words = df.to_dict(orient='records')
+try:
+    df = pandas.read_csv("data/words_to_learn.csv")
+except FileNotFoundError:
+    original_data = pandas.read_csv("data/french_words.csv")
+    words = original_data.to_dict(orient='records')
+else:
+    words = df.to_dict(orient='records')
+
+
 random_word = {}
 
 
@@ -28,7 +36,9 @@ def flip_card():
 
 def remove_card():
     words.remove(random_word)
-    print(len(words))
+    data = pandas.DataFrame(words)
+    data.to_csv("data/words_to_learn.csv", index=False)
+
     next_card()
 
 
